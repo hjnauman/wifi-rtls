@@ -20,7 +20,7 @@ def pkt_handler(pkt: Packet):
 
         time_sniffed = datetime.now()
         mac_address = pkt.addr2
-        ssid = str(pkt.info, 'utf-8')
+        ssid = pkt.info.decode()
 
         # Parse mac address and look up the organization from the vendor octets
         try:
