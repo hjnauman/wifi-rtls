@@ -29,6 +29,7 @@ def pkt_handler(pkt: Packet):
         rssi_val = pkt[RadioTap].dBm_AntSignal
 
         payload = f'{time_sniffed}{delim}{mac_address}{delim}{organization}{delim}{rssi_val}'
+        print(payload)
 
         publish.single(topic, payload, hostname='broker.hivemq.com', port=1883, keepalive=60)
 
