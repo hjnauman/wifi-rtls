@@ -23,7 +23,7 @@ def pkt_handler(pkt: Packet):
         try:
             parsed_mac = netaddr.EUI(pkt.addr2)
             organization = parsed_mac.oui.registration().org
-        except(netaddr.core.NotRegisteredError, e):
+        except:
             organization = 'UNKNOWN'
 
         rssi_val = pkt[RadioTap].dBm_AntSignal
