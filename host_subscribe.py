@@ -19,7 +19,7 @@ def unpack_payload(payload: str) -> ProbeRequest:
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic + " : " + str(msg.payload))
-    probe_request = unpack_payload(str(msg.payload))
+    probe_request = unpack_payload(str(msg.payload, 'utf-8'))
 
     if probe_request.mac_address not in sniffed_packets:
         sniffed_packets[probe_request.mac_address] = {probe_request.rpi_node : probe_request}
