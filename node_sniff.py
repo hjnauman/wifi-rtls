@@ -1,7 +1,7 @@
 from scapy.all import sniff
 from scapy.layers.dot11 import Dot11, RadioTap
 from scapy.packet import Packet
-import phao.mqtt.publish as publish
+import paho.mqtt.publish as publish
 import datetime
 import netaddr
 
