@@ -15,7 +15,8 @@ def pkt_handler(pkt: Packet):
         if pkt.type != 0 or pkt.subtype != 0x04:
             return
 
-        time_sniffed = datetime.now().isoformat()
+        time_sniffed = datetime.time().isoformat()
+        # time_sniffed = datetime.now().isoformat()
         mac_address = pkt.addr2
 
         # Parse mac address and look up the organization from the vendor octets
