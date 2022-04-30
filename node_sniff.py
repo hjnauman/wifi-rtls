@@ -35,6 +35,7 @@ def pkt_handler(pkt: Packet):
         rssi_val = pkt[RadioTap].dBm_AntSignal
 
         payload = f'{rpi_node}{DELIM}{time_sniffed}{DELIM}{mac_address}{DELIM}{ssid}{DELIM}{organization}{DELIM}{rssi_val}'
+        print(pkt.payload.name)
         # print(pkt.show())
         # print('\n\n\n')
 
