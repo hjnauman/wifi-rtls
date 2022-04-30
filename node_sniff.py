@@ -33,6 +33,6 @@ def pkt_handler(pkt: Packet):
 
         publish.single(topic, payload, hostname='broker.hivemq.com', port=1883, keepalive=60)
 
-sniff(iface='mon0', prn=pkt_handler, count=50)
+sniff(iface='mon0', prn=pkt_handler)
 
 
