@@ -1,12 +1,15 @@
+from datetime import datetime
+
+import netaddr
+import paho.mqtt.publish as publish
 from scapy.all import sniff
 from scapy.layers.dot11 import Dot11, RadioTap
 from scapy.packet import Packet
-import paho.mqtt.publish as publish
-import datetime
-import netaddr
 
-topic = 'uark/csce5013/hjnauman/wifi_rtls'
-delim = ' | '
+from constants import DELIM, MQTT_HOSTNAME, TOPIC
+
+# This variable must be indpendently set for each RPi node in the array
+rpi_node = 0
 
 def pkt_handler(pkt: Packet):
     if pkt.haslayer(Dot11) and pkt.haslayer(RadioTap):
@@ -15,9 +18,9 @@ def pkt_handler(pkt: Packet):
         if pkt.type != 0 or pkt.subtype != 0x04:
             return
 
-        time_sniffed = datetime.time()
-        # time_sniffed = datetime.now().isoformat()
+        time_sniffed = datetime.now()
         mac_address = pkt.addr2
+        ssid = pkt.info
 
         # Parse mac address and look up the organization from the vendor octets
         try:
@@ -28,10 +31,10 @@ def pkt_handler(pkt: Packet):
 
         rssi_val = pkt[RadioTap].dBm_AntSignal
 
-        payload = f'{time_sniffed}{delim}{mac_address}{delim}{organization}{delim}{rssi_val}'
+        payload = f'{rpi_node}{DELIM}{time_sniffed}{DELIM}{mac_address}{DELIM}{ssid}{DELIM}{organization}{DELIM}{rssi_val}'
         print(payload)
 
-        publish.single(topic, payload, hostname='broker.hivemq.com', port=1883, keepalive=60)
+        publish.single(TOPIC, payload, hostname=MQTT_HOSTNAME, port=1883, keepalive=60)
 
 sniff(iface='mon0', prn=pkt_handler)
 
