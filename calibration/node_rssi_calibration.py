@@ -30,7 +30,7 @@ def pkt_handler(pkt: Packet):
             print(mqtt_messages_sent)
 
             mqtt_messages_sent += 1
-            if mqtt_messages_sent == 20:
+            if mqtt_messages_sent == 19:
                 sys.exit(f'Distance calibration complete for {transmitter_distance} feet')
 
 sniff(iface='mon0', prn=pkt_handler)

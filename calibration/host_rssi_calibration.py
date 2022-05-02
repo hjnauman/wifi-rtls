@@ -5,7 +5,7 @@ DELIM = ' | '
 MQTT_HOSTNAME = 'broker.hivemq.com'
 distance_measurements = []
 
-def write_distance_rssi_mean():
+def write_distance_rssi_mean(distance_measurements):
     distance = distance_measurements[0].split(DELIM)[0]
 
     total_rssi = 0
@@ -30,7 +30,7 @@ def on_message(client, userdata, msg):
     print(msg.topic + " : " + str(msg.payload))
     distance_measurements.append(str(msg.payload, 'utf-8'))
     if len(distance_measurements) == 20:
-        write_distance_rssi_mean()
+        write_distance_rssi_mean(distance_measurements)
 
 
 client = mqtt.Client()
