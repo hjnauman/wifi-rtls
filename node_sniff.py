@@ -35,10 +35,6 @@ def pkt_handler(pkt: Packet):
         rssi_val = pkt[RadioTap].dBm_AntSignal
 
         payload = f'{rpi_node}{DELIM}{time_sniffed}{DELIM}{mac_address}{DELIM}{ssid}{DELIM}{organization}{DELIM}{rssi_val}'
-        dot11_layer = pkt.getlayer(Dot11)
-        print(dot11_layer.payload.name)
-        # print(pkt.show())
-        # print('\n\n\n')
 
         publish.single(TOPIC, payload, hostname=MQTT_HOSTNAME, port=1883, keepalive=60)
 
