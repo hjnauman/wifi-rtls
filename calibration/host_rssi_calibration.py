@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqtt
-from constants import DELIM, TOPIC, MQTT_HOSTNAME
 
+TOPIC = 'uark/csce5013/hjnauman/wifi_rtls'
+DELIM = ' | '
+MQTT_HOSTNAME = 'broker.hivemq.com'
 distance_measurements = []
 
 def write_distance_rssi_mean():

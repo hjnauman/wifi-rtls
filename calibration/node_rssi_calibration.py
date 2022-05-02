@@ -5,7 +5,9 @@ from scapy.all import sniff
 from scapy.layers.dot11 import Dot11, RadioTap
 from scapy.packet import Packet
 
-from constants import DELIM, MQTT_HOSTNAME, TOPIC
+TOPIC = 'uark/csce5013/hjnauman/wifi_rtls'
+DELIM = ' | '
+MQTT_HOSTNAME = 'broker.hivemq.com'
 
 transmitter_distance = sys.argv[1]
 mqtt_messages_sent = 0
