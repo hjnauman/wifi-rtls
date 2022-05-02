@@ -13,6 +13,7 @@ transmitter_distance = sys.argv[1]
 mqtt_messages_sent = 0
 
 def pkt_handler(pkt: Packet):
+    global mqtt_messages_sent
     if pkt.haslayer(Dot11) and pkt.haslayer(RadioTap):
         # We are looking for management frames with a probe subtype
         # if neither match we are done here
