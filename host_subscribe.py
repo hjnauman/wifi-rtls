@@ -1,8 +1,13 @@
 import paho.mqtt.client as mqtt
+from math import log10
 from probe_request import ProbeRequest
-from constants import DELIM, TOPIC, MQTT_HOSTNAME
+from constants import DELIM, TOPIC, MQTT_HOSTNAME, PATH_LOSS_EXPONENT, ENVIRONMENT_CONSTANT
 
 sniffed_packets = {}
+
+def calculate_device_distance_from_node(rssi):
+    # rssi(d) = -10n log_10(d) - c
+    distance = 10**((float(rssi) + ENVIRONMENT_CONSTANT)/(-10.0*PATH_LOSS_EXPONENT))
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -23,6 +28,9 @@ def on_message(client, userdata, msg):
 
     if probe_request.mac_address not in sniffed_packets:
         sniffed_packets[probe_request.mac_address] = {probe_request.rpi_node : probe_request}
+
+    estimated_distance = calculate_device_distance_from_node(probe_request.rssi)
+    print(f'Estimated distance : {estimated_distance} feet')
 
 
 client = mqtt.Client()

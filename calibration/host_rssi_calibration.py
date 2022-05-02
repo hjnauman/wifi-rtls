@@ -10,7 +10,7 @@ def write_distance_rssi_mean(distance_measurements):
 
     total_rssi = 0
     for i in distance_measurements:
-        total_rssi += i.split(DELIM)[1]
+        total_rssi += int(i.split(DELIM)[1])
 
     mean_rssi = int(total_rssi / 20)
     print(f'RSSI mean at {distance} feet : {mean_rssi}')
