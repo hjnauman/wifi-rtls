@@ -5,7 +5,7 @@ DELIM = ' | '
 MQTT_HOSTNAME = 'broker.hivemq.com'
 distance_measurements = []
 
-def write_distance_rssi_mean(distance_measurements):
+def print_distance_rssi_mean(distance_measurements):
     distance = distance_measurements[0].split(DELIM)[0]
 
     total_rssi = 0
@@ -14,8 +14,6 @@ def write_distance_rssi_mean(distance_measurements):
 
     mean_rssi = int(total_rssi / 20)
     print(f'RSSI mean at {distance} feet : {mean_rssi}')
-
-    distance_measurements = []
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -30,7 +28,7 @@ def on_message(client, userdata, msg):
     print(msg.topic + " : " + str(msg.payload))
     distance_measurements.append(str(msg.payload, 'utf-8'))
     if len(distance_measurements) == 20:
-        write_distance_rssi_mean(distance_measurements)
+        print_distance_rssi_mean(distance_measurements)
 
 
 client = mqtt.Client()

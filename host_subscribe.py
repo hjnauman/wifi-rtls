@@ -31,7 +31,7 @@ def on_message(client, userdata, msg):
     if probe_request.mac_address not in sniffed_packets:
         sniffed_packets[probe_request.mac_address] = {probe_request.rpi_node : probe_request}
 
-    estimated_distance = calculate_device_distance_from_node(int(probe_request.rssi))
+    estimated_distance = calculate_device_distance_from_node(probe_request.rssi)
     print(f'Estimated distance : {estimated_distance} feet')
 
 
