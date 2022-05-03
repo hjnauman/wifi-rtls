@@ -36,6 +36,8 @@ def plot_circles(radius_0, radius_1, radius_2):
     plt.ylim(-10, 50)
 
     axes.legend([circle_0, circle_1, circle_2, phone, rectangle], ["rpi_node_0", "rpi_node_1", "rpi_node_2", "phone position", "apartment outline"])
+    axes.set_xlabel('Distance (feet)')
+    axes.set_ylabel('Distance (feet)')
 
     plt.title('Phone Trilateration')
     plt.show()
