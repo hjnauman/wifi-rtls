@@ -23,7 +23,7 @@ def pkt_handler(pkt: Packet):
         mac_address = pkt.addr2
 
         # Check that mac address matches transmission device prior to sending message
-        if mac_address == '0a:1d:1a:b6:87:56':
+        if mac_address == 'desired_device_mac_address':
             rssi_val = pkt[RadioTap].dBm_AntSignal
             payload = f'{transmitter_distance}{DELIM}{rssi_val}'
             publish.single(TOPIC, payload, hostname=MQTT_HOSTNAME, port=1883, keepalive=60)
