@@ -25,6 +25,8 @@ def pkt_handler(pkt: Packet):
         else:
             ssid = str(pkt.info)
 
+        ssid = 'REMOVED'
+
         # Parse mac address and look up the organization from the vendor octets
         try:
             parsed_mac = netaddr.EUI(pkt.addr2)
